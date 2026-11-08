@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 36 33% 97%;
+    --foreground: 24 12% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 12% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 12% 8%;
+    --primary: 12 72% 55%;
+    --primary-foreground: 40 50% 98%;
+    --secondary: 168 40% 31%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 35 24% 93%;
+    --muted-foreground: 25 9% 42%;
+    --accent: 43 68% 90%;
+    --accent-foreground: 24 12% 12%;
+    --destructive: 0 72% 48%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 32 18% 87%;
+    --input: 32 18% 84%;
+    --ring: 12 72% 55%;
+    --radius: 0.85rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply min-h-screen bg-background font-sans text-foreground antialiased;
+    background-image:
+      radial-gradient(ellipse 60% 45% at 8% -8%, rgb(220 90 58 / 0.10), transparent 70%),
+      radial-gradient(ellipse 55% 40% at 96% 2%, rgb(47 111 100 / 0.10), transparent 70%);
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight;
+  }
+
+  ::selection {
+    background: #dc5a3a;
+    color: #fff8f0;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-clay;
+  }
+
+  .paper-panel {
+    @apply rounded-3xl border border-border/80 bg-card/80 shadow-soft backdrop-blur-sm;
+  }
+
+  .editorial-prose {
+    @apply text-[0.98rem] leading-7 text-ink-soft;
+  }
+
+  .editorial-prose p + p {
+    @apply mt-4;
+  }
+
+  .link-underline {
+    @apply relative inline-flex items-center gap-1.5 font-medium text-foreground transition-colors hover:text-clay;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute -bottom-0.5 left-0 h-px w-0 bg-clay transition-all duration-300;
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(23 21 18 / 0.22) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgb(23 21 18 / 0.22);
+    border-radius: 999px;
+  }
+
+  .grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .mask-fade-r {
+    mask-image: linear-gradient(to right, black 70%, transparent 100%);
+  }
+
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+}
+
+/* Animación de entrada para páginas */
+.page-enter {
+  animation: page-enter 0.45s ease-out both;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* React PDF */
+.react-pdf__Page__canvas {
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto !important;
+}
+
+.react-pdf__Page__textContent,
+.react-pdf__Page__annotations {
+  max-width: 100%;
+}
