@@ -121,6 +121,10 @@ src/
 - ReDoc: `https://<backend>/redoc`
 - Repositorio del backend: [Plataforma-Lector-Api/Backend](https://github.com/Plataforma-Lector-Api/Backend)
 
+## Documentación de la Entrega 2
+
+- [Informe y material de exposición](https://github.com/Plataforma-Lector-Api/Backend/tree/main/docs/entrega-2)
+
 ## Notas
 
 - El build muestra una advertencia por el tamaño del bundle (~1.78 MB) debido a `pdfjs-dist` y `recharts`; no impide el despliegue. Se puede reducir con imports dinámicos por ruta.
