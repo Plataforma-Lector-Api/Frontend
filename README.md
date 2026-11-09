@@ -2,6 +2,18 @@
 
 Interfaz web de **Lector+**, una biblioteca digital construida con React 19, Vite y Tailwind CSS. Consume la API de [Lector+ Backend](https://github.com/Plataforma-Lector-Api/Backend) (FastAPI + MongoDB) e incluye catálogo, búsqueda, biblioteca personal, reseñas, progreso de lectura, lector de PDFs con GridFS y panel administrativo.
 
+## Demo en vivo
+
+| Servicio | URL |
+|---|---|
+| Frontend | <https://frontend-nine-nu-92.vercel.app> |
+| API | <https://lector-api-k2ak.onrender.com> |
+| Swagger UI | <https://lector-api-k2ak.onrender.com/docs> |
+
+Credenciales de demostración: `admin@lector.com` / `Admin123!` (admin) y `lector@lector.com` / `Lector123!` (lector).
+
+> El backend corre en el plan free de Render: la primera petición tras 15 minutos de inactividad puede tardar ~50 s.
+
 ## Stack
 
 - **React 19** + **TypeScript 6** + **Vite 8**
@@ -38,7 +50,7 @@ La app queda disponible en `http://localhost:5173`.
 Para producción en Vercel, configura `VITE_API_URL` con la URL pública del backend, por ejemplo:
 
 ```env
-VITE_API_URL=https://lector-plus-api.onrender.com/api/v1
+VITE_API_URL=https://lector-api-k2ak.onrender.com/api/v1
 ```
 
 ## Cuentas de demostración
