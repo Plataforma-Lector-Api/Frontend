@@ -4,7 +4,6 @@ import {
   BookOpen,
   Bookmark,
   Compass,
-  Database,
   Quote,
   Sparkles,
   TrendingUp,
@@ -113,10 +112,6 @@ export function HomePage() {
               <span className="inline-flex items-center gap-2">
                 <BookOpen className="h-4 w-4 text-clay" />
                 {totalContents !== undefined ? `${formatNumber(totalContents)} títulos` : 'Catálogo curado'}
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Database className="h-4 w-4 text-pine" />
-                10 consultas MongoDB
               </span>
               <span className="inline-flex items-center gap-2">
                 <WifiOff className="h-4 w-4 text-gold" />

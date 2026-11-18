@@ -2,15 +2,28 @@ import { Link } from 'react-router-dom'
 import { GitBranch, ExternalLink, Database, BookOpen } from 'lucide-react'
 
 import { Logo } from '@/components/logo'
+import { useAuth } from '@/hooks/use-auth'
 import { API_URL } from '@/lib/api'
 
 const apiDocsUrl = `${API_URL.replace(/\/api\/v1$/, '')}/docs`
 
 export function Footer() {
+  const { isAuthenticated } = useAuth()
+
+  const accountLinks = isAuthenticated
+    ? [
+        { to: '/biblioteca', label: 'Mi biblioteca' },
+        { to: '/perfil', label: 'Mi perfil' },
+      ]
+    : [
+        { to: '/login', label: 'Iniciar sesión' },
+        { to: '/registro', label: 'Crear cuenta' },
+      ]
+
   return (
     <footer className="mt-20 bg-ink text-paper/70">
-      <div className="container grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
-        <div className="lg:col-span-1">
+      <div className="container grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-[1.55fr_1fr_1fr_1fr]">
+        <div>
           <Logo inverted />
           <p className="mt-4 max-w-xs text-pretty text-sm leading-relaxed text-paper/60">
             Tu biblioteca digital: descubre, guarda, reseña y lee libros, artículos y
@@ -48,11 +61,6 @@ export function Footer() {
                 Mejor valorados
               </Link>
             </li>
-            <li>
-              <Link to="/consultas" className="transition-colors hover:text-paper">
-                Las 10 consultas MongoDB
-              </Link>
-            </li>
           </ul>
         </div>
 
@@ -61,32 +69,19 @@ export function Footer() {
             Cuenta
           </p>
           <ul className="mt-4 space-y-2.5 text-sm">
-            <li>
-              <Link to="/login" className="transition-colors hover:text-paper">
-                Iniciar sesión
-              </Link>
-            </li>
-            <li>
-              <Link to="/registro" className="transition-colors hover:text-paper">
-                Crear cuenta
-              </Link>
-            </li>
-            <li>
-              <Link to="/biblioteca" className="transition-colors hover:text-paper">
-                Mi biblioteca
-              </Link>
-            </li>
-            <li>
-              <Link to="/perfil" className="transition-colors hover:text-paper">
-                Mi perfil
-              </Link>
-            </li>
+            {accountLinks.map((link) => (
+              <li key={link.to}>
+                <Link to={link.to} className="transition-colors hover:text-paper">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/40">
-            Proyecto
+            Recursos
           </p>
           <ul className="mt-4 space-y-2.5 text-sm">
             <li>
@@ -110,11 +105,6 @@ export function Footer() {
                 GitHub
                 <GitBranch className="h-3.5 w-3.5" />
               </a>
-            </li>
-            <li>
-              <Link to="/consultas" className="transition-colors hover:text-paper">
-                Demostración de consultas
-              </Link>
             </li>
           </ul>
         </div>

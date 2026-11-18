@@ -8,6 +8,7 @@ import {
   BookOpen,
   CalendarDays,
   CheckCircle2,
+  Lock,
   Mail,
   Save,
   Shield,
@@ -103,8 +104,9 @@ export function ProfilePage() {
         <h1 className="font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
           Mi perfil
         </h1>
-        <p className="mt-3 text-sm text-ink-muted">
-          Administra tus datos y revisa tu actividad de lectura.
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted">
+          Administra tus datos y revisa tu actividad de lectura. Este perfil es privado:
+          solo tú puedes verlo y editarlo.
         </p>
       </div>
 
@@ -135,6 +137,10 @@ export function ProfilePage() {
                 <Badge variant="muted" className="normal-case tracking-normal">
                   <CalendarDays className="h-3 w-3" />
                   Miembro desde {formatDate(user.created_at)}
+                </Badge>
+                <Badge variant="outline" className="normal-case tracking-normal">
+                  <Lock className="h-3 w-3" />
+                  Solo visible para ti
                 </Badge>
               </div>
               {user.bio && <p className="mt-4 text-sm leading-relaxed text-ink-soft">{user.bio}</p>}
@@ -200,7 +206,8 @@ export function ProfilePage() {
         <div className="paper-panel h-fit p-6 sm:p-8">
           <h2 className="font-display text-2xl font-semibold text-ink">Editar datos</h2>
           <p className="mt-1 text-sm text-ink-muted">
-            Actualiza tu nombre, biografía y foto de perfil.
+            Actualiza tu nombre, biografía y foto de perfil. Estos datos no son visibles
+            para otras personas.
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-5">

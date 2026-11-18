@@ -125,16 +125,6 @@ export interface Dashboard {
   }>
 }
 
-export interface QueryInfo {
-  number: number
-  name: string
-  description: string
-  method: string
-  endpoint: string
-  operators: string[]
-  index: string
-}
-
 export interface FileMetadata {
   id: string
   filename: string

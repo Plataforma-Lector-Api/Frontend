@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Eye, EyeOff, Loader2, LogIn, Shield, UserRound } from 'lucide-react'
+import { Eye, EyeOff, Loader2, LogIn, UserRound } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { AuthShell } from '@/components/auth-shell'
@@ -53,14 +53,9 @@ export function LoginPage() {
     }
   }
 
-  function fillDemo(role: 'admin' | 'reader') {
-    if (role === 'admin') {
-      setValue('email', 'admin@lector.com', { shouldValidate: true })
-      setValue('password', 'Admin123!', { shouldValidate: true })
-    } else {
-      setValue('email', 'lector@lector.com', { shouldValidate: true })
-      setValue('password', 'Lector123!', { shouldValidate: true })
-    }
+  function fillReaderDemo() {
+    setValue('email', 'lector@lector.com', { shouldValidate: true })
+    setValue('password', 'Lector123!', { shouldValidate: true })
     setServerError(null)
   }
 
@@ -78,15 +73,21 @@ export function LoginPage() {
         </>
       }
     >
-      <div className="mb-6 grid grid-cols-2 gap-2">
-        <Button type="button" variant="outline" size="sm" onClick={() => fillDemo('reader')}>
+      <div className="mb-6 space-y-2">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="w-full"
+          onClick={fillReaderDemo}
+        >
           <UserRound className="h-3.5 w-3.5" />
-          Demo lector
+          Probar con la cuenta de lector
         </Button>
-        <Button type="button" variant="outline" size="sm" onClick={() => fillDemo('admin')}>
-          <Shield className="h-3.5 w-3.5" />
-          Demo admin
-        </Button>
+        <p className="text-center text-xs leading-relaxed text-ink-muted">
+          Las cuentas nuevas se crean como lectoras. El acceso de administrador se asigna
+          desde la administración del sistema.
+        </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>

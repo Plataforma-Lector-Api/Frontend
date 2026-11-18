@@ -14,7 +14,6 @@ import { LibraryPage } from '@/pages/library'
 import { LoginPage } from '@/pages/login'
 import { NotFoundPage } from '@/pages/not-found'
 import { ProfilePage } from '@/pages/profile'
-import { QueriesPage } from '@/pages/queries'
 import { ReaderPage } from '@/pages/reader'
 import { RegisterPage } from '@/pages/register'
 
@@ -39,7 +38,6 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/catalogo" element={<CatalogPage />} />
           <Route path="/contenido/:contentId" element={<ContentDetailPage />} />
-          <Route path="/consultas" element={<QueriesPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registro" element={<RegisterPage />} />
 

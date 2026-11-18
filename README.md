@@ -72,7 +72,6 @@ VITE_API_URL=https://lector-api-k2ak.onrender.com/api/v1
 | `/contenido/:id`      | Detalle: sinopsis, metadatos, reseñas, guardar y progreso          |
 | `/leer/:id`           | Lector de PDF servido desde GridFS, con guardado de progreso       |
 | `/biblioteca`         | Biblioteca personal: guardados, en curso y completados             |
-| `/consultas`          | Las 10 consultas MongoDB ejecutables en vivo con código y tiempo   |
 | `/perfil`             | Edición de datos y actividad de lectura                            |
 | `/login`, `/registro` | Autenticación con JWT (access + refresh token)                     |
 | `/admin`              | Dashboard con métricas y gráficas                                  |
@@ -93,7 +92,7 @@ npm run lint     # ESLint
 ```text
 src/
 ├── components/       # Layout, UI (Radix/shadcn) y visor de PDF
-├── hooks/            # Auth, catálogo, biblioteca, admin, queries
+├── hooks/            # Auth, catálogo, biblioteca y admin
 ├── lib/              # Cliente HTTP, formato y utilidades
 ├── pages/            # Vistas de la aplicación
 ├── types/            # Tipos compartidos con la API

@@ -31,7 +31,6 @@ import { cn, initials } from '@/lib/utils'
 const BASE_LINKS = [
   { to: '/', label: 'Inicio', end: true },
   { to: '/catalogo', label: 'Catálogo' },
-  { to: '/consultas', label: 'Consultas' },
 ]
 
 export function Navbar() {
