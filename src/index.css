@@ -41,6 +41,8 @@
     --gold-soft: 43 71% 88%;
     --gold-ink: 40 71% 32%;
     --gold-foreground: 36 12% 8%;
+    --chart-4: 214 35% 37%;
+    --chart-5: 326 26% 39%;
     --body-glow-1: rgb(220 90 58 / 0.10);
     --body-glow-2: rgb(47 111 100 / 0.10);
     --scrollbar: rgb(23 21 18 / 0.22);
@@ -85,6 +87,8 @@
     --gold-soft: 40 55% 80%;
     --gold-ink: 35 60% 30%;
     --gold-foreground: 30 23% 18%;
+    --chart-4: 214 30% 36%;
+    --chart-5: 326 24% 38%;
     --body-glow-1: rgb(184 68 42 / 0.12);
     --body-glow-2: rgb(47 111 100 / 0.10);
     --scrollbar: rgb(58 47 36 / 0.28);
@@ -130,6 +134,8 @@
     --gold-soft: 40 30% 22%;
     --gold-ink: 39 60% 72%;
     --gold-foreground: 30 20% 10%;
+    --chart-4: 214 35% 65%;
+    --chart-5: 326 30% 65%;
     --body-glow-1: rgb(220 90 58 / 0.16);
     --body-glow-2: rgb(47 111 100 / 0.14);
     --scrollbar: rgb(242 236 226 / 0.28);

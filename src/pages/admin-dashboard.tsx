@@ -37,8 +37,8 @@ const CHART_COLORS = [
   'hsl(var(--clay))',
   'hsl(var(--pine))',
   'hsl(var(--gold))',
-  'hsl(var(--ink-soft))',
-  'hsl(var(--clay-dark))',
+  'hsl(var(--chart-4))',
+  'hsl(var(--chart-5))',
 ]
 
 const CHART_GRID = 'hsl(var(--border))'
