@@ -15,6 +15,15 @@ export interface User {
   last_login_at: string | null
 }
 
+export interface PublicProfile {
+  id: string
+  name: string
+  avatar_url: string | null
+  bio: string | null
+  created_at: string | null
+}
+
+
 export interface TokenResponse {
   access_token: string
   refresh_token: string

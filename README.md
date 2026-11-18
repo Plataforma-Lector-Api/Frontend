@@ -1,6 +1,6 @@
 # Lector+ · Frontend
 
-Interfaz web de **Lector+**, una biblioteca digital construida con React 19, Vite y Tailwind CSS. Consume la API de [Lector+ Backend](https://github.com/Plataforma-Lector-Api/Backend) (FastAPI + MongoDB) e incluye catálogo, búsqueda, biblioteca personal, reseñas, progreso de lectura, lector de PDFs con GridFS y panel administrativo.
+Interfaz web de **Lector+**, una biblioteca digital construida con React 19, Vite y Tailwind CSS. Consume la API de [Lector+ Backend](https://github.com/Plataforma-Lector-Api/Backend) (FastAPI + MongoDB) e incluye catálogo, búsqueda, biblioteca personal, reseñas, progreso de lectura, lector de PDFs con GridFS, perfiles públicos y panel administrativo.
 
 ## Demo en vivo
 
@@ -72,7 +72,8 @@ VITE_API_URL=https://lector-api-k2ak.onrender.com/api/v1
 | `/contenido/:id`      | Detalle: sinopsis, metadatos, reseñas, guardar y progreso          |
 | `/leer/:id`           | Lector de PDF servido desde GridFS, con guardado de progreso       |
 | `/biblioteca`         | Biblioteca personal: guardados, en curso y completados             |
-| `/perfil`             | Edición de datos y actividad de lectura                            |
+| `/perfil`             | Edición del perfil propio y actividad de lectura                    |
+| `/usuarios/:id`       | Perfil público de solo lectura: nombre, foto y biografía           |
 | `/login`, `/registro` | Autenticación con JWT (access + refresh token)                     |
 | `/admin`              | Dashboard con métricas y gráficas                                  |
 | `/admin/contenidos`   | CRUD de contenidos y subida de PDFs a GridFS                       |
@@ -92,7 +93,7 @@ npm run lint     # ESLint
 ```text
 src/
 ├── components/       # Layout, UI (Radix/shadcn) y visor de PDF
-├── hooks/            # Auth, catálogo, biblioteca y admin
+├── hooks/            # Auth, catálogo, biblioteca, perfiles y admin
 ├── lib/              # Cliente HTTP, formato y utilidades
 ├── pages/            # Vistas de la aplicación
 ├── types/            # Tipos compartidos con la API

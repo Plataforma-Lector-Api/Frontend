@@ -14,17 +14,22 @@ export function ReviewCard({ review }: ReviewCardProps) {
   return (
     <article className="border-b border-border/70 py-5 last:border-0">
       <div className="flex items-start gap-3">
-        <Avatar className="h-10 w-10">
-          <AvatarImage src={undefined} alt={review.user_name ?? 'Lector'} />
-          <AvatarFallback>{initials(review.user_name ?? 'Lector')}</AvatarFallback>
-        </Avatar>
+        <Link to={`/usuarios/${review.user_id}`} aria-label={`Ver perfil de ${review.user_name ?? 'lector'}`}>
+          <Avatar className="h-10 w-10 transition-opacity hover:opacity-80">
+            <AvatarImage src={undefined} alt={review.user_name ?? 'Lector'} />
+            <AvatarFallback>{initials(review.user_name ?? 'Lector')}</AvatarFallback>
+          </Avatar>
+        </Link>
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
-              <p className="text-sm font-semibold text-ink">
+              <Link
+                to={`/usuarios/${review.user_id}`}
+                className="text-sm font-semibold text-ink transition-colors hover:text-clay"
+              >
                 {review.user_name ?? 'Lector anónimo'}
-              </p>
+              </Link>
               <p className="text-xs text-ink-muted">{relativeDate(review.created_at)}</p>
             </div>
             <RatingStars rating={review.rating} size="sm" />

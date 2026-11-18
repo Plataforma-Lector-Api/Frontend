@@ -8,7 +8,8 @@ import {
   BookOpen,
   CalendarDays,
   CheckCircle2,
-  Lock,
+  Eye,
+  Globe,
   Mail,
   Save,
   Shield,
@@ -99,15 +100,23 @@ export function ProfilePage() {
 
   return (
     <Page>
-      <div className="mb-10">
-        <p className="eyebrow mb-2">Cuenta</p>
-        <h1 className="font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
-          Mi perfil
-        </h1>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted">
-          Administra tus datos y revisa tu actividad de lectura. Este perfil es privado:
-          solo tú puedes verlo y editarlo.
-        </p>
+      <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="eyebrow mb-2">Cuenta</p>
+          <h1 className="font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
+            Mi perfil
+          </h1>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted">
+            Administra tus datos y revisa tu actividad de lectura. Tu nombre, foto y
+            biografía son visibles para la comunidad; tu correo y tu progreso son privados.
+          </p>
+        </div>
+        <Button variant="outline" asChild>
+          <Link to={`/usuarios/${user.id}`}>
+            <Eye className="h-4 w-4" />
+            Ver mi perfil público
+          </Link>
+        </Button>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
@@ -139,8 +148,8 @@ export function ProfilePage() {
                   Miembro desde {formatDate(user.created_at)}
                 </Badge>
                 <Badge variant="outline" className="normal-case tracking-normal">
-                  <Lock className="h-3 w-3" />
-                  Solo visible para ti
+                  <Globe className="h-3 w-3" />
+                  Visible para la comunidad
                 </Badge>
               </div>
               {user.bio && <p className="mt-4 text-sm leading-relaxed text-ink-soft">{user.bio}</p>}
@@ -206,8 +215,8 @@ export function ProfilePage() {
         <div className="paper-panel h-fit p-6 sm:p-8">
           <h2 className="font-display text-2xl font-semibold text-ink">Editar datos</h2>
           <p className="mt-1 text-sm text-ink-muted">
-            Actualiza tu nombre, biografía y foto de perfil. Estos datos no son visibles
-            para otras personas.
+            Actualiza tu nombre, biografía y foto de perfil. El correo y la actividad de
+            lectura no se muestran en tu perfil público.
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-5">
