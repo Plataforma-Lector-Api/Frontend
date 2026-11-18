@@ -73,9 +73,8 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="container flex flex-col items-center justify-between gap-2 py-5 text-xs text-paper/40 sm:flex-row">
+        <div className="container py-5 text-center text-xs text-paper/40">
           <p>© {new Date().getFullYear()} Lector+. Proyecto académico de biblioteca digital.</p>
-          <p>FastAPI · MongoDB · React · GridFS</p>
         </div>
       </div>
     </footer>
