@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    color-scheme: light;
     --background: 36 33% 97%;
     --foreground: 24 12% 8%;
     --card: 0 0% 100%;
@@ -24,6 +25,116 @@
     --input: 32 18% 84%;
     --ring: 12 72% 55%;
     --radius: 0.85rem;
+
+    --ink: 36 12% 8%;
+    --ink-soft: 35 11% 22%;
+    --ink-muted: 33 8% 44%;
+    --paper: 38 44% 96%;
+    --paper-deep: 38 38% 92%;
+    --clay: 12 70% 55%;
+    --clay-dark: 11 63% 44%;
+    --clay-soft: 14 68% 89%;
+    --pine: 170 41% 31%;
+    --pine-dark: 169 44% 23%;
+    --pine-soft: 162 26% 87%;
+    --gold: 39 67% 55%;
+    --gold-soft: 43 71% 88%;
+    --gold-ink: 40 71% 32%;
+    --gold-foreground: 36 12% 8%;
+    --body-glow-1: rgb(220 90 58 / 0.10);
+    --body-glow-2: rgb(47 111 100 / 0.10);
+    --scrollbar: rgb(23 21 18 / 0.22);
+    --selection-bg: #dc5a3a;
+    --selection-fg: #fff8f0;
+  }
+
+  [data-theme='sepia'] {
+    color-scheme: light;
+    --background: 43 56% 90%;
+    --foreground: 30 23% 18%;
+    --card: 42 70% 94%;
+    --card-foreground: 30 23% 18%;
+    --popover: 42 70% 94%;
+    --popover-foreground: 30 23% 18%;
+    --primary: 14 62% 45%;
+    --primary-foreground: 40 50% 98%;
+    --secondary: 170 35% 30%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 40 35% 84%;
+    --muted-foreground: 32 19% 38%;
+    --accent: 40 55% 82%;
+    --accent-foreground: 30 23% 18%;
+    --destructive: 0 65% 42%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 39 30% 76%;
+    --input: 39 30% 72%;
+    --ring: 14 62% 45%;
+
+    --ink: 30 23% 18%;
+    --ink-soft: 30 23% 29%;
+    --ink-muted: 32 19% 41%;
+    --paper: 43 56% 90%;
+    --paper-deep: 40 45% 84%;
+    --clay: 14 62% 45%;
+    --clay-dark: 14 62% 36%;
+    --clay-soft: 30 50% 82%;
+    --pine: 170 35% 30%;
+    --pine-dark: 170 38% 22%;
+    --pine-soft: 165 25% 80%;
+    --gold: 38 58% 48%;
+    --gold-soft: 40 55% 80%;
+    --gold-ink: 35 60% 30%;
+    --gold-foreground: 30 23% 18%;
+    --body-glow-1: rgb(184 68 42 / 0.12);
+    --body-glow-2: rgb(47 111 100 / 0.10);
+    --scrollbar: rgb(58 47 36 / 0.28);
+    --selection-bg: #b8442a;
+    --selection-fg: #fff8f0;
+  }
+
+  [data-theme='dark'],
+  .dark {
+    color-scheme: dark;
+    --background: 30 10% 9%;
+    --foreground: 38 38% 92%;
+    --card: 30 13% 12%;
+    --card-foreground: 38 38% 92%;
+    --popover: 30 13% 12%;
+    --popover-foreground: 38 38% 92%;
+    --primary: 12 70% 60%;
+    --primary-foreground: 30 20% 10%;
+    --secondary: 168 35% 45%;
+    --secondary-foreground: 30 20% 10%;
+    --muted: 30 10% 17%;
+    --muted-foreground: 34 12% 65%;
+    --accent: 35 20% 18%;
+    --accent-foreground: 38 30% 90%;
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 12% 22%;
+    --input: 30 12% 26%;
+    --ring: 12 70% 60%;
+
+    --ink: 38 38% 92%;
+    --ink-soft: 34 20% 80%;
+    --ink-muted: 34 12% 61%;
+    --paper: 30 10% 9%;
+    --paper-deep: 30 10% 6%;
+    --clay: 12 70% 62%;
+    --clay-dark: 12 70% 52%;
+    --clay-soft: 14 30% 24%;
+    --pine: 168 35% 55%;
+    --pine-dark: 168 35% 45%;
+    --pine-soft: 168 25% 22%;
+    --gold: 39 60% 58%;
+    --gold-soft: 40 30% 22%;
+    --gold-ink: 39 60% 72%;
+    --gold-foreground: 30 20% 10%;
+    --body-glow-1: rgb(220 90 58 / 0.16);
+    --body-glow-2: rgb(47 111 100 / 0.14);
+    --scrollbar: rgb(242 236 226 / 0.28);
+    --selection-bg: #dc5a3a;
+    --selection-fg: #fff8f0;
   }
 
   * {
@@ -34,14 +145,16 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    background-color: hsl(var(--background));
   }
 
   body {
     @apply min-h-screen bg-background font-sans text-foreground antialiased;
     background-image:
-      radial-gradient(ellipse 60% 45% at 8% -8%, rgb(220 90 58 / 0.10), transparent 70%),
-      radial-gradient(ellipse 55% 40% at 96% 2%, rgb(47 111 100 / 0.10), transparent 70%);
+      radial-gradient(ellipse 60% 45% at 8% -8%, var(--body-glow-1), transparent 70%),
+      radial-gradient(ellipse 55% 40% at 96% 2%, var(--body-glow-2), transparent 70%);
     background-attachment: fixed;
+    transition: background-color 220ms ease, color 220ms ease;
   }
 
   h1,
@@ -52,8 +165,8 @@
   }
 
   ::selection {
-    background: #dc5a3a;
-    color: #fff8f0;
+    background: var(--selection-bg);
+    color: var(--selection-fg);
   }
 
   :focus-visible {
@@ -93,7 +206,7 @@
 
   .scrollbar-thin {
     scrollbar-width: thin;
-    scrollbar-color: rgb(23 21 18 / 0.22) transparent;
+    scrollbar-color: var(--scrollbar) transparent;
   }
 
   .scrollbar-thin::-webkit-scrollbar {
@@ -102,7 +215,7 @@
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: rgb(23 21 18 / 0.22);
+    background: var(--scrollbar);
     border-radius: 999px;
   }
 
@@ -168,4 +281,17 @@
 .react-pdf__Page__textContent,
 .react-pdf__Page__annotations {
   max-width: 100%;
+}
+
+.pdf-page {
+  transition: filter 220ms ease;
+}
+
+[data-theme='sepia'] .pdf-page {
+  filter: sepia(0.32) saturate(1.08) brightness(0.97);
+}
+
+[data-theme='dark'] .pdf-page,
+.dark .pdf-page {
+  filter: invert(0.9) hue-rotate(180deg) contrast(0.95) brightness(0.92);
 }

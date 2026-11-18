@@ -83,7 +83,7 @@ export function LibraryPage() {
           </div>
         </div>
         <div className="paper-panel flex items-center gap-4 p-5">
-          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gold/20 text-[#8a6417]">
+          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gold/20 text-gold-ink">
             <CheckCircle2 className="h-5 w-5" />
           </span>
           <div>

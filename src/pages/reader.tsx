@@ -14,6 +14,7 @@ import { toast } from 'sonner'
 import { EmptyState } from '@/components/empty-state'
 import { Page } from '@/components/layout/page'
 import { PdfViewer } from '@/components/pdf-viewer'
+import { ReadingThemePicker } from '@/components/theme-toggle'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
@@ -127,6 +128,7 @@ export function ReaderPage() {
         </Button>
 
         <div className="flex flex-wrap items-center gap-2">
+          <ReadingThemePicker />
           <Badge variant="muted">{typeLabel(content.type)}</Badge>
           <Badge variant="gold" className="gap-1">
             <FileText className="h-3 w-3" />

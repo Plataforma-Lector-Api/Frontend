@@ -9,6 +9,23 @@
       content="Lector+ — Tu biblioteca digital: descubre, guarda, reseña y lee libros, artículos y tesis desde cualquier dispositivo."
     />
     <meta name="theme-color" content="#faf7f2" />
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem('lector.theme')
+          if (theme !== 'light' && theme !== 'sepia' && theme !== 'dark') theme = 'light'
+          var root = document.documentElement
+          root.dataset.theme = theme
+          root.classList.toggle('dark', theme === 'dark')
+          root.style.colorScheme = theme === 'dark' ? 'dark' : 'light'
+          var colors = { light: '#faf7f2', sepia: '#f4ecd8', dark: '#171512' }
+          var meta = document.querySelector('meta[name="theme-color"]')
+          if (meta) meta.setAttribute('content', colors[theme])
+        } catch (error) {
+          /* Sin acceso a localStorage: se usa el tema claro por defecto. */
+        }
+      })()
+    </script>
     <title>Lector+ | Tu biblioteca, sin límites</title>
   </head>
   <body>

@@ -178,7 +178,7 @@ export function CatalogPage() {
                   className={cn(
                     'rounded-full border px-2.5 py-1 text-xs font-medium transition-colors',
                     tags.includes(tag.tag)
-                      ? 'border-clay bg-clay text-white'
+                      ? 'border-clay bg-clay text-primary-foreground'
                       : 'border-border bg-card/60 text-ink-soft hover:border-clay/40 hover:text-clay',
                   )}
                 >
@@ -292,7 +292,7 @@ export function CatalogPage() {
             <SlidersHorizontal className="h-4 w-4" />
             Filtros
             {activeFilterCount > 0 && (
-              <span className="ml-1 rounded-full bg-clay px-1.5 text-[0.65rem] text-white">
+              <span className="ml-1 rounded-full bg-clay px-1.5 text-[0.65rem] text-primary-foreground">
                 {activeFilterCount}
               </span>
             )}

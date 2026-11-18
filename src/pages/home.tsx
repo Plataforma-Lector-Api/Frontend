@@ -315,7 +315,7 @@ export function HomePage() {
         </section>
       ) : (
         <section className="container pb-14 sm:pb-20">
-          <div className="relative overflow-hidden rounded-3xl bg-ink px-6 py-12 text-paper sm:px-12">
+          <div className="relative overflow-hidden rounded-3xl bg-brand-ink px-6 py-12 text-brand-paper sm:px-12">
             <div className="pointer-events-none absolute -right-10 -top-16 h-64 w-64 rounded-full bg-clay/25 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-20 left-1/3 h-64 w-64 rounded-full bg-pine/30 blur-3xl" />
 
@@ -326,7 +326,7 @@ export function HomePage() {
                   “Una biblioteca personal no se compra: se descubre, se guarda y se
                   comparte.”
                 </h2>
-                <p className="mt-3 text-sm text-paper/60">
+                <p className="mt-3 text-sm text-brand-paper/60">
                   Crea tu cuenta gratis y empieza a construir la tuya.
                 </p>
               </div>
@@ -337,7 +337,7 @@ export function HomePage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/20 bg-transparent text-paper hover:bg-white/10 hover:text-paper"
+                  className="border-white/20 bg-transparent text-brand-paper hover:bg-white/10 hover:text-brand-paper"
                   asChild
                 >
                   <Link to="/login">Ya tengo cuenta</Link>

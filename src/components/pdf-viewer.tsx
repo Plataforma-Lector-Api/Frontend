@@ -235,7 +235,7 @@ export function PdfViewer({
                 width={pageWidth}
                 renderAnnotationLayer
                 renderTextLayer
-                className="mx-auto overflow-hidden rounded-lg bg-white shadow-lift"
+                className="pdf-page mx-auto overflow-hidden rounded-lg bg-white shadow-lift"
               />
             )}
           </Document>

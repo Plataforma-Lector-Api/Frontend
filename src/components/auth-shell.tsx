@@ -14,7 +14,7 @@ interface AuthShellProps {
 export function AuthShell({ eyebrow, title, subtitle, children, footer }: AuthShellProps) {
   return (
     <div className="container grid min-h-[calc(100vh-4rem)] items-center gap-12 py-10 lg:grid-cols-2 lg:gap-16">
-      <div className="relative hidden overflow-hidden rounded-3xl bg-ink p-10 text-paper lg:flex lg:min-h-[640px] lg:flex-col lg:justify-between">
+      <div className="relative hidden overflow-hidden rounded-3xl bg-brand-ink p-10 text-brand-paper lg:flex lg:min-h-[640px] lg:flex-col lg:justify-between">
         <div className="pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full bg-clay/30 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-pine/40 blur-3xl" />
 
@@ -26,7 +26,7 @@ export function AuthShell({ eyebrow, title, subtitle, children, footer }: AuthSh
           <h2 className="mt-3 max-w-md text-balance font-display text-4xl font-semibold leading-tight">
             Un lugar para todo lo que quieres leer.
           </h2>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-paper/60">
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-brand-paper/60">
             Descubre contenidos curados, guarda tu biblioteca personal y retoma cada
             lectura exactamente donde la dejaste.
           </p>
@@ -45,13 +45,13 @@ export function AuthShell({ eyebrow, title, subtitle, children, footer }: AuthSh
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/10 text-gold">
                 <item.icon className="h-4 w-4" />
               </span>
-              <p className="text-sm text-paper/75">{item.text}</p>
+              <p className="text-sm text-brand-paper/75">{item.text}</p>
               <Check className="ml-auto h-4 w-4 shrink-0 text-pine" />
             </div>
           ))}
         </div>
 
-        <p className="relative mt-10 text-xs text-paper/35">
+        <p className="relative mt-10 text-xs text-brand-paper/35">
           Lector+ · FastAPI + MongoDB + React
         </p>
       </div>

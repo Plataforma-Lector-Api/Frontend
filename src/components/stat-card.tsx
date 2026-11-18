@@ -14,7 +14,7 @@ interface StatCardProps {
 const TONES = {
   clay: 'bg-clay/10 text-clay-dark',
   pine: 'bg-pine/10 text-pine-dark',
-  gold: 'bg-gold/20 text-[#8a6417]',
+  gold: 'bg-gold/20 text-gold-ink',
   ink: 'bg-ink/5 text-ink',
 }
 

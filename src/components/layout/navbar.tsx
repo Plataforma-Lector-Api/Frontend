@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 
 import { Logo } from '@/components/logo'
+import { ThemeToggle } from '@/components/theme-toggle'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -93,6 +94,8 @@ export function Navbar() {
               aria-label="Buscar en el catálogo"
             />
           </form>
+
+          <ThemeToggle />
 
           {loading ? (
             <div className="h-9 w-24 animate-pulse rounded-full bg-muted" />
@@ -199,6 +202,10 @@ export function Navbar() {
                 {link.label}
               </NavLink>
             ))}
+            <div className="mt-2 flex items-center justify-between gap-3 rounded-xl border border-border/70 px-3 py-2">
+              <span className="text-sm font-medium text-ink-muted">Modo de lectura</span>
+              <ThemeToggle />
+            </div>
             {!isAuthenticated && (
               <div className="mt-2 grid grid-cols-2 gap-2">
                 <Button variant="outline" asChild>
@@ -214,7 +221,7 @@ export function Navbar() {
               </div>
             )}
             {isAdmin && (
-              <div className="mt-2 flex items-center gap-2 rounded-xl bg-gold/15 px-3 py-2 text-xs font-medium text-[#8a6417]">
+              <div className="mt-2 flex items-center gap-2 rounded-xl bg-gold/15 px-3 py-2 text-xs font-medium text-gold-ink">
                 <Shield className="h-4 w-4" />
                 Sesión de administrador
               </div>

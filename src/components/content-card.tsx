@@ -52,7 +52,7 @@ export function ContentCard({ content, className }: ContentCardProps) {
         {content.has_file && (
           <Badge
             variant="gold"
-            className="absolute left-3 top-3 gap-1 border border-white/10 bg-ink/70 text-paper backdrop-blur-sm"
+            className="absolute left-3 top-3 gap-1 border border-white/10 bg-brand-ink/70 text-brand-paper backdrop-blur-sm"
           >
             <FileText className="h-3 w-3" />
             PDF
@@ -68,8 +68,8 @@ export function ContentCard({ content, className }: ContentCardProps) {
         disabled={isPending}
         aria-label={isSaved ? 'Quitar de la biblioteca' : 'Guardar en la biblioteca'}
         className={cn(
-          'absolute right-3 top-3 z-10 rounded-full border border-white/20 bg-ink/45 text-paper backdrop-blur-md hover:bg-ink/70 hover:text-paper',
-          isSaved && 'bg-clay text-white hover:bg-clay-dark',
+          'absolute right-3 top-3 z-10 rounded-full border border-white/20 bg-brand-ink/45 text-brand-paper backdrop-blur-md hover:bg-brand-ink/70 hover:text-brand-paper',
+          isSaved && 'bg-clay text-primary-foreground hover:bg-clay-dark',
         )}
       >
         {isSaved ? (

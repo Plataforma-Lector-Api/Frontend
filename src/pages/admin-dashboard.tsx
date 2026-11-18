@@ -33,7 +33,24 @@ import { useDashboard } from '@/hooks/use-admin'
 import { formatNumber, relativeDate, typeLabel } from '@/lib/format'
 import { coverPalette } from '@/lib/utils'
 
-const CHART_COLORS = ['#dc5a3a', '#2f6f64', '#d9a441', '#3d5a80', '#7d4a67']
+const CHART_COLORS = [
+  'hsl(var(--clay))',
+  'hsl(var(--pine))',
+  'hsl(var(--gold))',
+  'hsl(var(--ink-soft))',
+  'hsl(var(--clay-dark))',
+]
+
+const CHART_GRID = 'hsl(var(--border))'
+const CHART_TICK = 'hsl(var(--ink-muted))'
+
+const CHART_TOOLTIP = {
+  borderRadius: 12,
+  border: `1px solid ${CHART_GRID}`,
+  background: 'hsl(var(--card))',
+  color: 'hsl(var(--card-foreground))',
+  fontSize: 12,
+}
 
 function DashboardSkeleton() {
   return (
@@ -158,27 +175,21 @@ export function AdminDashboardPage() {
               <div className="h-64 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={monthData} margin={{ top: 4, right: 8, bottom: 0, left: -22 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e7e0d6" vertical={false} />
+                    <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
                     <XAxis
                       dataKey="month"
-                      tick={{ fontSize: 11, fill: '#7a7268' }}
+                      tick={{ fontSize: 11, fill: CHART_TICK }}
                       tickLine={false}
                       axisLine={false}
                     />
                     <YAxis
                       allowDecimals={false}
-                      tick={{ fontSize: 11, fill: '#7a7268' }}
+                      tick={{ fontSize: 11, fill: CHART_TICK }}
                       tickLine={false}
                       axisLine={false}
                     />
-                    <RechartsTooltip
-                      contentStyle={{
-                        borderRadius: 12,
-                        border: '1px solid #e7e0d6',
-                        fontSize: 12,
-                      }}
-                    />
-                    <Bar dataKey="usuarios" fill="#dc5a3a" radius={[6, 6, 0, 0]} />
+                    <RechartsTooltip contentStyle={CHART_TOOLTIP} />
+                    <Bar dataKey="usuarios" fill={CHART_COLORS[0]} radius={[6, 6, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -213,13 +224,7 @@ export function AdminDashboardPage() {
                           />
                         ))}
                       </Pie>
-                      <RechartsTooltip
-                        contentStyle={{
-                          borderRadius: 12,
-                          border: '1px solid #e7e0d6',
-                          fontSize: 12,
-                        }}
-                      />
+                      <RechartsTooltip contentStyle={CHART_TOOLTIP} />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>

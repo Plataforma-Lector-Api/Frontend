@@ -10,6 +10,7 @@ import './index.css'
 
 import App from './App'
 import { AuthProvider } from '@/hooks/use-auth'
+import { ThemeProvider } from '@/hooks/use-theme'
 import { TooltipProvider } from '@/components/ui/tooltip'
 
 const queryClient = new QueryClient({
@@ -29,12 +30,14 @@ createRoot(rootElement).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <AuthProvider>
-          <TooltipProvider delayDuration={200}>
-            <App />
-            <Toaster richColors position="top-right" closeButton />
-          </TooltipProvider>
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <TooltipProvider delayDuration={200}>
+              <App />
+              <Toaster richColors position="top-right" closeButton />
+            </TooltipProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </QueryClientProvider>
   </StrictMode>,
