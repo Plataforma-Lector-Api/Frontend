@@ -10,7 +10,7 @@ import './index.css'
 
 import App from './App'
 import { AuthProvider } from '@/hooks/use-auth'
-import { ThemeProvider } from '@/hooks/use-theme'
+import { ThemeProvider, useTheme } from '@/hooks/use-theme'
 import { TooltipProvider } from '@/components/ui/tooltip'
 
 const queryClient = new QueryClient({
@@ -23,6 +23,18 @@ const queryClient = new QueryClient({
   },
 })
 
+function ThemedToaster() {
+  const { theme } = useTheme()
+  return (
+    <Toaster
+      richColors
+      position="top-right"
+      closeButton
+      theme={theme === 'dark' ? 'dark' : 'light'}
+    />
+  )
+}
+
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('No se encontró el elemento #root')
 
@@ -34,7 +46,7 @@ createRoot(rootElement).render(
           <AuthProvider>
             <TooltipProvider delayDuration={200}>
               <App />
-              <Toaster richColors position="top-right" closeButton />
+              <ThemedToaster />
             </TooltipProvider>
           </AuthProvider>
         </ThemeProvider>
