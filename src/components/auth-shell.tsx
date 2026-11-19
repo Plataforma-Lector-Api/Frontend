@@ -34,7 +34,10 @@ export function AuthShell({ eyebrow, title, subtitle, children, footer }: AuthSh
 
         <div className="relative mt-10 space-y-3">
           {[
-            { icon: BookOpen, text: 'Lectura de PDFs en el navegador con progreso automático' },
+            {
+              icon: BookOpen,
+              text: 'Lectura de PDFs y EPUBs en el navegador con progreso automático',
+            },
             { icon: Database, text: 'Catálogo y recomendaciones impulsados por MongoDB' },
             { icon: Sparkles, text: 'Reseñas, calificaciones y descubrimiento por afinidad' },
           ].map((item) => (

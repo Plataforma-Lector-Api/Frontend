@@ -2,6 +2,7 @@ export type Role = 'reader' | 'admin'
 export type UserStatus = 'active' | 'disabled'
 export type ContentType = 'book' | 'article' | 'thesis' | 'magazine' | 'other'
 export type ContentStatus = 'draft' | 'published' | 'archived'
+export type FileType = 'pdf' | 'epub'
 
 export interface User {
   id: string
@@ -59,6 +60,7 @@ export interface Content {
   rating_avg: number
   rating_count: number
   has_file: boolean
+  file_type: FileType | null
   is_saved: boolean
   created_at: string | null
   updated_at: string | null
@@ -90,6 +92,7 @@ export interface ReadingProgress {
   current_page: number
   total_pages: number
   percentage: number
+  location: string | null
   updated_at: string | null
   content: Content | null
 }
@@ -138,6 +141,7 @@ export interface FileMetadata {
   id: string
   filename: string
   content_type: string
+  file_type: FileType | null
   size: number
   upload_date: string | null
 }

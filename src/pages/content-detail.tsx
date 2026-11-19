@@ -90,6 +90,8 @@ export function ContentDetailPage() {
   }
 
   const progress = progressQuery.data
+  const isEpub = content.file_type === 'epub'
+  const fileLabel = isEpub ? 'EPUB' : 'PDF'
   const myReview = reviewsQuery.data?.data.find((review) => review.user_id === user?.id)
   const relatedItems =
     related.data?.data.filter((item) => item.id !== content.id).slice(0, 4) ?? []
@@ -106,7 +108,7 @@ export function ContentDetailPage() {
 
   async function handleDownload() {
     if (!isAuthenticated) {
-      toast.info('Inicia sesión para descargar el PDF.')
+      toast.info('Inicia sesión para descargar el archivo.')
       navigate(`/login?redirect=/contenido/${content?.id}`)
       return
     }
@@ -117,13 +119,13 @@ export function ContentDetailPage() {
       const url = URL.createObjectURL(blob)
       const anchor = document.createElement('a')
       anchor.href = url
-      anchor.download = `${content.title}.pdf`
+      anchor.download = `${content.title}.${isEpub ? 'epub' : 'pdf'}`
       document.body.appendChild(anchor)
       anchor.click()
       anchor.remove()
       URL.revokeObjectURL(url)
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'No se pudo descargar el PDF.')
+      toast.error(error instanceof Error ? error.message : 'No se pudo descargar el archivo.')
     } finally {
       setDownloading(false)
     }
@@ -162,13 +164,17 @@ export function ContentDetailPage() {
                 <Button className="w-full" size="lg" asChild>
                   <Link to={`/leer/${content.id}`}>
                     <BookOpen className="h-4 w-4" />
-                    {progress ? `Continuar en pág. ${progress.current_page}` : 'Leer ahora'}
+                    {progress
+                      ? isEpub
+                        ? 'Continuar leyendo'
+                        : `Continuar en pág. ${progress.current_page}`
+                      : 'Leer ahora'}
                   </Link>
                 </Button>
               ) : (
                 <Button className="w-full" size="lg" disabled>
                   <BookOpen className="h-4 w-4" />
-                  PDF no disponible
+                  Archivo no disponible
                 </Button>
               )}
 
@@ -199,7 +205,7 @@ export function ContentDetailPage() {
                   ) : (
                     <Download className="h-4 w-4" />
                   )}
-                  Descargar PDF
+                  Descargar {fileLabel}
                 </Button>
               )}
             </div>
@@ -214,8 +220,8 @@ export function ContentDetailPage() {
             )}
             {content.has_file && (
               <Badge variant="gold" className="gap-1">
-                <FileText className="h-3 w-3" />
-                PDF disponible
+                {isEpub ? <BookOpen className="h-3 w-3" /> : <FileText className="h-3 w-3" />}
+                {fileLabel} disponible
               </Badge>
             )}
           </div>
@@ -253,7 +259,9 @@ export function ContentDetailPage() {
               <div className="flex items-center justify-between gap-3 text-sm">
                 <span className="font-semibold text-pine-dark">Tu progreso de lectura</span>
                 <span className="text-ink-muted">
-                  {progress.current_page} de {progress.total_pages} páginas
+                  {isEpub
+                    ? `${progress.percentage}% leído`
+                    : `${progress.current_page} de ${progress.total_pages} páginas`}
                 </span>
               </div>
               <Progress value={progress.percentage} className="mt-3 h-2 bg-pine/10 [&>div]:bg-pine" />
@@ -274,13 +282,17 @@ export function ContentDetailPage() {
               <Button asChild>
                 <Link to={`/leer/${content.id}`}>
                   <BookOpen className="h-4 w-4" />
-                  {progress ? `Continuar en pág. ${progress.current_page}` : 'Leer ahora'}
+                  {progress
+                    ? isEpub
+                      ? 'Continuar leyendo'
+                      : `Continuar en pág. ${progress.current_page}`
+                    : 'Leer ahora'}
                 </Link>
               </Button>
             ) : (
               <Button disabled>
                 <BookOpen className="h-4 w-4" />
-                PDF no disponible
+                Archivo no disponible
               </Button>
             )}
             <Button variant="outline" onClick={handleSave} disabled={isPending}>
@@ -294,7 +306,7 @@ export function ContentDetailPage() {
                 ) : (
                   <Download className="h-4 w-4" />
                 )}
-                PDF
+                {fileLabel}
               </Button>
             )}
           </div>

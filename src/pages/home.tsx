@@ -84,7 +84,7 @@ export function HomePage() {
 
             <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-ink-soft sm:text-lg">
               Explora un catálogo curado de libros, artículos y tesis. Guarda lo que te
-              inspira, sigue tu progreso y lee PDFs directamente en el navegador.
+              inspira, sigue tu progreso y lee PDFs y EPUBs directamente en el navegador.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">

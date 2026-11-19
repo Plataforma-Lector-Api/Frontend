@@ -75,18 +75,20 @@ export interface ProgressPayload {
   currentPage: number
   totalPages: number
   percentage?: number
+  location?: string
 }
 
 export function useSaveProgress() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: ({ contentId, currentPage, totalPages, percentage }: ProgressPayload) =>
+    mutationFn: ({ contentId, currentPage, totalPages, percentage, location }: ProgressPayload) =>
       apiFetch<ReadingProgress>(`/users/me/progress/${contentId}`, {
         method: 'PUT',
         body: {
           current_page: currentPage,
           total_pages: totalPages,
           ...(percentage !== undefined ? { percentage } : {}),
+          ...(location ? { location } : {}),
         },
       }),
     onSuccess: async (data) => {

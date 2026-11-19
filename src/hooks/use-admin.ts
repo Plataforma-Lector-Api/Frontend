@@ -108,7 +108,7 @@ export function useDeleteContent() {
   })
 }
 
-export function useUploadPdf() {
+export function useUploadFile() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({ contentId, file }: { contentId: string; file: File }) => {
@@ -129,7 +129,7 @@ export function useUploadPdf() {
   })
 }
 
-export function useDeletePdf() {
+export function useDeleteFile() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (contentId: string) =>

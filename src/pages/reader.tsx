@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -23,6 +23,10 @@ import { useContent } from '@/hooks/use-contents'
 import { useContentProgress, useSaveProgress, useToggleSave } from '@/hooks/use-library'
 import { formatNumber, typeLabel } from '@/lib/format'
 
+const EpubViewer = lazy(() =>
+  import('@/components/epub-viewer').then((module) => ({ default: module.EpubViewer })),
+)
+
 export function ReaderPage() {
   const { contentId } = useParams<{ contentId: string }>()
   const navigate = useNavigate()
@@ -33,16 +37,19 @@ export function ReaderPage() {
 
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
+  const [percentage, setPercentage] = useState(0)
   const [ready, setReady] = useState(false)
   const timerRef = useRef<number | null>(null)
 
   const content = contentQuery.data
   const progress = progressQuery.data
+  const isEpub = content?.file_type === 'epub'
 
   useEffect(() => {
     if (progress) {
-      setPage(progress.current_page)
+      setPage(Math.max(1, progress.current_page))
       setTotalPages(progress.total_pages)
+      setPercentage(progress.percentage)
     }
     if (!progressQuery.isLoading) setReady(true)
   }, [progress, progressQuery.isLoading])
@@ -56,6 +63,11 @@ export function ReaderPage() {
   function handlePageChange(nextPage: number, total: number) {
     setPage(nextPage)
     if (total > 0) setTotalPages(total)
+    const nextPercentage =
+      total > 0
+        ? Math.round(Math.min(100, (nextPage / total) * 100) * 10) / 10
+        : percentage
+    setPercentage(nextPercentage)
     if (!contentId || total <= 0) return
 
     if (timerRef.current) window.clearTimeout(timerRef.current)
@@ -65,7 +77,32 @@ export function ReaderPage() {
           contentId,
           currentPage: nextPage,
           totalPages: total,
-          percentage: Math.round(Math.min(100, (nextPage / total) * 100) * 10) / 10,
+          percentage: nextPercentage,
+        },
+        {
+          onError: () => toast.error('No se pudo guardar tu progreso de lectura.'),
+        },
+      )
+    }, 900)
+  }
+
+  function handleLocationChange(location: string, nextPercentage: number) {
+    const rounded = Math.round(nextPercentage * 10) / 10
+    const syntheticPage = Math.max(1, Math.min(100, Math.round(rounded) || 1))
+    setPercentage(rounded)
+    setPage(syntheticPage)
+    setTotalPages(100)
+    if (!contentId) return
+
+    if (timerRef.current) window.clearTimeout(timerRef.current)
+    timerRef.current = window.setTimeout(() => {
+      saveProgress.mutate(
+        {
+          contentId,
+          currentPage: syntheticPage,
+          totalPages: 100,
+          percentage: rounded,
+          location,
         },
         {
           onError: () => toast.error('No se pudo guardar tu progreso de lectura.'),
@@ -105,17 +142,14 @@ export function ReaderPage() {
       <Page>
         <EmptyState
           icon={BookOpen}
-          title="Este contenido aún no tiene PDF"
-          description="El equipo editorial todavía no ha subido el archivo. Puedes guardarlo en tu biblioteca y volver más tarde."
+          title="Este contenido aún no tiene archivo"
+          description="El equipo editorial todavía no ha subido el PDF o EPUB. Puedes guardarlo en tu biblioteca y volver más tarde."
           actionLabel="Volver al detalle"
           onAction={() => navigate(`/contenido/${content.id}`)}
         />
       </Page>
     )
   }
-
-  const percentage =
-    totalPages > 0 ? Math.round(Math.min(100, (page / totalPages) * 100) * 10) / 10 : 0
 
   return (
     <Page className="max-w-6xl">
@@ -131,8 +165,8 @@ export function ReaderPage() {
           <ReadingThemePicker />
           <Badge variant="muted">{typeLabel(content.type)}</Badge>
           <Badge variant="gold" className="gap-1">
-            <FileText className="h-3 w-3" />
-            GridFS
+            {isEpub ? <BookOpen className="h-3 w-3" /> : <FileText className="h-3 w-3" />}
+            {isEpub ? 'EPUB' : 'PDF'} · GridFS
           </Badge>
           <Button
             variant="outline"
@@ -173,20 +207,39 @@ export function ReaderPage() {
           </div>
           <Progress value={percentage} className="mt-2 h-1.5" />
           <p className="mt-1.5 text-xs text-ink-muted">
-            Página {page}
-            {totalPages > 0 ? ` de ${totalPages}` : ''} ·{' '}
-            {saveProgress.isPending ? 'Guardando…' : 'Guardado automático'}
+            {isEpub
+              ? `${percentage}% leído`
+              : `Página ${page}${totalPages > 0 ? ` de ${totalPages}` : ''}`}{' '}
+            · {saveProgress.isPending ? 'Guardando…' : 'Guardado automático'}
           </p>
         </div>
       </div>
 
       {ready ? (
-        <PdfViewer
-          contentId={content.id}
-          filename={`${content.title}.pdf`}
-          initialPage={Math.max(1, progress?.current_page ?? 1)}
-          onPageChange={handlePageChange}
-        />
+        isEpub ? (
+          <Suspense
+            fallback={
+              <div className="flex min-h-[50vh] flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-card/60 text-ink-muted">
+                <Loader2 className="h-7 w-7 animate-spin text-clay" />
+                <p className="text-sm">Cargando visor EPUB…</p>
+              </div>
+            }
+          >
+            <EpubViewer
+              contentId={content.id}
+              filename={`${content.title}.epub`}
+              initialLocation={progress?.location ?? null}
+              onLocationChange={handleLocationChange}
+            />
+          </Suspense>
+        ) : (
+          <PdfViewer
+            contentId={content.id}
+            filename={`${content.title}.pdf`}
+            initialPage={Math.max(1, progress?.current_page ?? 1)}
+            onPageChange={handlePageChange}
+          />
+        )
       ) : (
         <div className="flex min-h-[50vh] flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-card/60 text-ink-muted">
           <Loader2 className="h-7 w-7 animate-spin text-clay" />

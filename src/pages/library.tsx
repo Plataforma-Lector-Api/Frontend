@@ -136,7 +136,7 @@ export function LibraryPage() {
             <EmptyState
               icon={BookOpen}
               title="Aún no has empezado a leer"
-              description="Abre un contenido con PDF y tu progreso se guardará automáticamente página a página."
+              description="Abre un contenido con PDF o EPUB y tu progreso se guardará automáticamente."
               actionLabel="Ver catálogo"
               onAction={() => navigate('/catalogo')}
             />
@@ -178,7 +178,9 @@ export function LibraryPage() {
                         </span>
                       </div>
                       <p className="mt-1 text-xs text-ink-muted">
-                        Página {item.current_page} de {item.total_pages}
+                        {content.file_type === 'epub'
+                          ? `${item.percentage}% leído · ${content.file_type.toUpperCase()}`
+                          : `Página ${item.current_page} de ${item.total_pages}`}
                       </p>
                     </div>
 

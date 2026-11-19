@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Bookmark, BookmarkCheck, FileText } from 'lucide-react'
+import { Bookmark, BookmarkCheck, BookOpen, FileText } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { Badge } from '@/components/ui/badge'
@@ -54,8 +54,12 @@ export function ContentCard({ content, className }: ContentCardProps) {
             variant="gold"
             className="absolute left-3 top-3 gap-1 border border-white/10 bg-brand-ink/70 text-brand-paper backdrop-blur-sm"
           >
-            <FileText className="h-3 w-3" />
-            PDF
+            {content.file_type === 'epub' ? (
+              <BookOpen className="h-3 w-3" />
+            ) : (
+              <FileText className="h-3 w-3" />
+            )}
+            {content.file_type === 'epub' ? 'EPUB' : 'PDF'}
           </Badge>
         )}
       </Link>

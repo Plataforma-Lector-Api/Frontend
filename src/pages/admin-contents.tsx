@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import {
+  BookOpen,
   FileText,
   Loader2,
   Pencil,
@@ -47,9 +48,9 @@ import {
   useAdminContents,
   useCreateContent,
   useDeleteContent,
-  useDeletePdf,
+  useDeleteFile,
   useUpdateContent,
-  useUploadPdf,
+  useUploadFile,
 } from '@/hooks/use-admin'
 import { CONTENT_STATUS_LABELS, typeLabel, yearOf } from '@/lib/format'
 import type { Content, ContentInput } from '@/types'
@@ -81,23 +82,30 @@ function statusVariant(status: string) {
   return 'muted' as const
 }
 
-function PdfUploadButton({ content }: { content: Content }) {
+function FileUploadButton({ content }: { content: Content }) {
   const inputRef = useRef<HTMLInputElement>(null)
-  const upload = useUploadPdf()
-  const remove = useDeletePdf()
+  const upload = useUploadFile()
+  const remove = useDeleteFile()
+  const isEpub = content.file_type === 'epub'
 
   function handleFile(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]
     event.target.value = ''
     if (!file) return
-    if (!file.name.toLowerCase().endsWith('.pdf')) {
-      toast.error('Selecciona un archivo PDF.')
+    const name = file.name.toLowerCase()
+    if (!name.endsWith('.pdf') && !name.endsWith('.epub')) {
+      toast.error('Selecciona un archivo PDF o EPUB.')
       return
     }
     upload.mutate(
       { contentId: content.id, file },
       {
-        onSuccess: () => toast.success(`PDF de “${content.title}” actualizado.`),
+        onSuccess: (metadata) =>
+          toast.success(
+            `${
+              metadata.file_type === 'epub' ? 'EPUB' : 'PDF'
+            } de “${content.title}” actualizado.`,
+          ),
         onError: (error) => toast.error(error.message),
       },
     )
@@ -108,25 +116,25 @@ function PdfUploadButton({ content }: { content: Content }) {
       <input
         ref={inputRef}
         type="file"
-        accept="application/pdf,.pdf"
+        accept="application/pdf,.pdf,application/epub+zip,.epub"
         className="hidden"
         onChange={handleFile}
       />
       {content.has_file ? (
         <Badge variant="gold" className="gap-1">
-          <FileText className="h-3 w-3" />
-          PDF
+          {isEpub ? <BookOpen className="h-3 w-3" /> : <FileText className="h-3 w-3" />}
+          {isEpub ? 'EPUB' : 'PDF'}
         </Badge>
       ) : (
-        <Badge variant="muted">Sin PDF</Badge>
+        <Badge variant="muted">Sin archivo</Badge>
       )}
       <Button
         variant="ghost"
         size="icon-sm"
         onClick={() => inputRef.current?.click()}
         disabled={upload.isPending}
-        aria-label={content.has_file ? 'Reemplazar PDF' : 'Subir PDF'}
-        title={content.has_file ? 'Reemplazar PDF' : 'Subir PDF'}
+        aria-label={content.has_file ? 'Reemplazar archivo' : 'Subir archivo'}
+        title={content.has_file ? 'Reemplazar archivo' : 'Subir archivo'}
       >
         {upload.isPending ? (
           <Loader2 className="h-4 w-4 animate-spin" />
@@ -141,13 +149,13 @@ function PdfUploadButton({ content }: { content: Content }) {
           className="text-destructive"
           onClick={() =>
             remove.mutate(content.id, {
-              onSuccess: () => toast.success('PDF eliminado de GridFS.'),
+              onSuccess: () => toast.success('Archivo eliminado de GridFS.'),
               onError: (error) => toast.error(error.message),
             })
           }
           disabled={remove.isPending}
-          aria-label="Eliminar PDF"
-          title="Eliminar PDF"
+          aria-label="Eliminar archivo"
+          title="Eliminar archivo"
         >
           {remove.isPending ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -289,8 +297,8 @@ export function AdminContentsPage() {
             Contenidos
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted">
-            Crea, edita y publica títulos del catálogo. Sube PDFs reales que se guardan en
-            MongoDB GridFS.
+            Crea, edita y publica títulos del catálogo. Sube PDFs o EPUBs reales que se
+            guardan en MongoDB GridFS.
           </p>
         </div>
         <Button onClick={openCreate} size="lg">
@@ -364,7 +372,7 @@ export function AdminContentsPage() {
                 <TableHead>Tipo</TableHead>
                 <TableHead>Estado</TableHead>
                 <TableHead>Valoración</TableHead>
-                <TableHead>PDF / GridFS</TableHead>
+                <TableHead>Archivo / GridFS</TableHead>
                 <TableHead className="text-right">Acciones</TableHead>
               </TableRow>
             </TableHeader>
@@ -396,7 +404,7 @@ export function AdminContentsPage() {
                     </span>
                   </TableCell>
                   <TableCell>
-                    <PdfUploadButton content={content} />
+                    <FileUploadButton content={content} />
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center justify-end gap-1">
@@ -566,7 +574,7 @@ export function AdminContentsPage() {
             <DialogTitle>Eliminar contenido</DialogTitle>
             <DialogDescription>
               ¿Seguro que quieres eliminar “{deleteTarget?.title}”? También se eliminarán sus
-              reseñas, guardados, progreso y PDF asociado. Esta acción no se puede deshacer.
+              reseñas, guardados, progreso y archivo asociado. Esta acción no se puede deshacer.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
